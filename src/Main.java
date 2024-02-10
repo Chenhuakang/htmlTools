@@ -1,5 +1,4 @@
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 
 import java.io.File;
 import java.io.IOException;
@@ -68,7 +67,8 @@ public class Main {
         }
         try {
             FileInputStream fis = new FileInputStream(pactFile);
-            InputStreamReader inputStreamReader = new InputStreamReader(fis, "UTF-8");
+            java.nio.charset.Charset defaultCharset = java.nio.charset.Charset.forName("GBK");
+            InputStreamReader inputStreamReader = new InputStreamReader(fis, defaultCharset);
             BufferedReader in  = new BufferedReader(inputStreamReader);
 
             String str;

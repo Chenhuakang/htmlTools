@@ -42,7 +42,7 @@ class BatchEncoder {
         try {
 //           BufferedReader reader = new BufferedReader(new FileReader(f, UTF_8)); // 打开原始文件进行读取
 //           BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(f),UTF_8));
-             java.nio.charset.Charset defaultCharset = defaultCharset = java.nio.charset.Charset.forName("GBK");
+            java.nio.charset.Charset defaultCharset = java.nio.charset.Charset.forName("GBK");
             BufferedReader reader = new BufferedReader(new FileReader(f, defaultCharset));
             StringBuilder contentBuilder = new StringBuilder(); // 构造新的文件内容字符串
             String line;
