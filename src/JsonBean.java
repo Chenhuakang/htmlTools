@@ -10,12 +10,23 @@ public class JsonBean {
 
     private int type;
 
+    private float zoom;
+
     public JsonBean(String oldString, String newString, String executeDirectory, String destinationDirectory, int type) {
         this.oldString = oldString;
         this.newString = newString;
         this.executeDirectory = executeDirectory;
         this.destinationDirectory = destinationDirectory;
         this.type = type;
+    }
+
+    public JsonBean(String oldString, String newString, String executeDirectory, String destinationDirectory, int type, float zoom) {
+        this.oldString = oldString;
+        this.newString = newString;
+        this.executeDirectory = executeDirectory;
+        this.destinationDirectory = destinationDirectory;
+        this.type = type;
+        this.zoom = zoom;
     }
 
     public String getOldString() {
@@ -56,5 +67,13 @@ public class JsonBean {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public float getZoom() {
+        return zoom;
+    }
+
+    public void setZoom(float zoom) {
+        this.zoom = zoom;
     }
 }

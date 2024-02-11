@@ -10,17 +10,21 @@ import java.io.BufferedReader;
 
 public class Main {
 
-    public static  String oldString = "";
+    public static String oldString = "";
     //newString  替换成新的文字
-    public static  String newString = "";
+    public static String newString = "";
+
+    public static int stringType = 0;
 
     // executeDirectory  需要操作的文件夹  不要放多级目录，只支持一级目录
-    public static  String executeDirectory ="";
+    public static String executeDirectory ="";
 
     //destinationDirectory 替换成功后的文件夹，不要放executeDirectory里面，会死循环
-    private static  String destinationDirectory ="";
+    private static String destinationDirectory ="";
 
-    private static  int type = 0;
+    private static int type = 0;
+
+    public static float zoom = 0f;
 
     public static void main(String[] args) {
         File file = new File("");
@@ -37,10 +41,27 @@ public class Main {
                 }
                 return;
             }
-            if(type > 1){
+            if(type == 2){
                 new BatchEncoderAll(executeDirectory);
                 try {
                     BatchEncoderAll.copyDirectory(file.getCanonicalPath(), destinationDirectory);
+                }catch (IOException exception){
+                }
+
+            }
+            if(type == 3){
+
+                new BatchEncoderAllHtm(executeDirectory);
+                try {
+                    BatchEncoderAllHtm.copyDirectory(file.getCanonicalPath(), destinationDirectory);
+                }catch (IOException exception){
+                }
+
+            }
+            if(type == 4){
+                new BatchEncoderAllHtmSize(executeDirectory);
+                try {
+                    BatchEncoderAllHtmSize.copyDirectory(file.getCanonicalPath(), destinationDirectory);
                 }catch (IOException exception){
                 }
 
@@ -83,6 +104,7 @@ public class Main {
                 newString = jsonBean.getNewString();
                 executeDirectory = jsonBean.getExecuteDirectory();
                 destinationDirectory = jsonBean.getDestinationDirectory();
+                zoom = jsonBean.getZoom();
                 type = jsonBean.getType();
             }else {
                 System.out.println("无法读取到配置文件");

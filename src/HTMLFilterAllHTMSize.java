@@ -2,7 +2,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.util.List;
 
-class HTMLFilterAll implements FilenameFilter {
+class HTMLFilterAllHtmSize implements FilenameFilter {
     public boolean accept(File directory, String name) {
         if (name.endsWith(".html")) return true;
         if (name.endsWith(".htm")) return true;
@@ -12,27 +12,14 @@ class HTMLFilterAll implements FilenameFilter {
     }
 }
 
-class BatchEncoderAll {
+class BatchEncoderAllHtmSize {
     String oldFile = null;
 
-    public BatchEncoderAll(String oldFile)  {
+    public BatchEncoderAllHtmSize(String oldFile)  {
         this.oldFile = oldFile;
         File f = new File(oldFile);
         traverse(f);
 
-//        List<File> myfile = new ArrayList<File>();
-//        //开始遍历
-//        try {
-//            listDirectory(new File(f.getCanonicalPath()), myfile);
-//        }catch (IOException ioException){
-//
-//        }
-//        if(myfile.isEmpty()){
-//            return;
-//        }
-//        for(int i = 0;i< myfile.size();i++ ){
-//            treeFile(myfile.get(i));
-//        }
     }
 
     public static void traverse(File file) {
@@ -133,10 +120,23 @@ class BatchEncoderAll {
                     }
                 }
             }
-//            modifiedContent = contentBuilder.toString().replace(modifiedContent, newString);
+            if(modifiedContent.contains(".htm>")){
+                modifiedContent = modifiedContent.replace(".htm>",".html>");
+            }
+            if(modifiedContent.contains(".HTM>")){
+                modifiedContent = modifiedContent.replace(".HTM>",".html>");
+            }
+
+            if(modifiedContent.contains("<html>")){
+                modifiedContent = modifiedContent.replace("<html>","<html><div style=zoom:" + Main.zoom + ";>");
+            }
+            if(modifiedContent.contains("</html>")){
+                modifiedContent = modifiedContent.replace("</html>","</div></html>");
+            }
+
             reader.close(); // 关闭原始文件
 
-            f.deleteOnExit();
+//            f.deleteOnExit();
 
             String directory = f.getParent().replace(Main.executeDirectory + "\\","");
             File parentFile = null;
@@ -145,10 +145,18 @@ class BatchEncoderAll {
                 parentFile.mkdirs();
             }
             File file = null;
+            String fileName = f.getName();
+            if(!f.getName().equalsIgnoreCase("html")){
+                if(f.getName().endsWith("HTM")){
+                    fileName = fileName.replace("HTM","html");
+                }else {
+                    fileName = fileName.replace("htm","html");
+                }
+            }
             if(parentFile!=null){
-                file = new File(parentFile, f.getName());
+                file = new File(parentFile, fileName);
             }else {
-                file = new File(f.getName());
+                file = new File(fileName);
             }
             FileOutputStream fos = new FileOutputStream(file);
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
@@ -168,53 +176,6 @@ class BatchEncoderAll {
 
         }
     }
-
-
-//    public static void copyDirectory(String sourceFolderPath, String destinationFolderPath) throws IOException {
-//        File sourceFolder = new File(sourceFolderPath);
-//        if (!sourceFolder.exists()) {
-//            throw new IllegalArgumentException("Source folder does not exist.");
-//        }
-//
-//        File destinationFolder = new File(destinationFolderPath);
-//        if(!destinationFolder.exists()){
-//            destinationFolder.mkdirs();
-//        }
-//        if (destinationFolder.isFile() || !destinationFolder.getParentFile().exists()) {
-//            throw new IllegalArgumentException("Destination is a file or parent directory does not exist.");
-//        }
-//
-//        for (File file : sourceFolder.listFiles()) {
-//            if (file.isDirectory()) {
-//                copyDirectory(file.getAbsolutePath(), destinationFolder.getAbsolutePath());
-//            } else {
-//                copyFile(file.getAbsolutePath(), destinationFolder.getAbsolutePath());
-//            }
-//        }
-//    }
-//
-//    private static void copyFile(String sourceFilePath, String destinationFolderPath) {
-//        File sourceFile = new File(sourceFilePath);
-//        if (!sourceFile.exists()) {
-//            throw new IllegalArgumentException("Source file does not exist.");
-//        }
-//        if (sourceFile.getName().endsWith("  .html") || sourceFile.getName().endsWith(".htm") ||
-//                sourceFile.getName().endsWith(".HTML") ||  sourceFile.getName().endsWith(".HTM")){
-//            File destinationFile = new File(destinationFolderPath + "/" + sourceFile.getName());
-//            try (InputStream inStream = new FileInputStream(sourceFile); OutputStream outStream = new FileOutputStream(destinationFile)) {
-//                byte[] buffer = new byte[1024];
-//                int length;
-//
-//                while ((length = inStream.read(buffer)) > 0) {
-//                    outStream.write(buffer, 0, length);
-//                }
-//            } catch (IOException e) {
-//                System.out.println("Error copying file: " + e.getMessage());
-//            }
-//            sourceFile.deleteOnExit();
-//        }
-//    }
-
 
     public void copyFile(String oldPath, String newPath) {
         try {

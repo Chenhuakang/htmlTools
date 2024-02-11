@@ -53,9 +53,29 @@ class BatchEncoder {
             String oldString = Main.oldString;
             String newString = Main.newString;
 
-            String modifiedContent = contentBuilder.toString().replace(oldString, newString);
+            String[] split= oldString.split(",");
+            String modifiedContent = contentBuilder.toString();
 
+            if(split.length > 1){
+                if(modifiedContent.contains(split[0])){
+                    Main.stringType = 1;
+                }else  if(modifiedContent.contains(split[1])){
+                    Main.stringType = 2;
+                }else {
+                    Main.stringType = 3;
+                }
+            }
+            if(Main.stringType == 1){
+                modifiedContent = modifiedContent.replace(modifiedContent, split[0]);
+            }else if(Main.stringType == 2){
+                modifiedContent = modifiedContent.replace(modifiedContent, split[1]);
+            }else if(Main.stringType == 3){
+                if(split.length > 2){
+                    modifiedContent = modifiedContent.replace(modifiedContent, split[2]);
+                }
+            }
 
+            modifiedContent = contentBuilder.toString().replace(modifiedContent, newString);
 
             reader.close(); // 关闭原始文件
 

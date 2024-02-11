@@ -1,7 +1,8 @@
 {
-	"oldString": "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=gb2312\">",
-	"newString": "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=uff-8\">",
+	"oldString": "charset=gb2312,charset=gbk",
+	"newString": "charset=utf-8",
 	"executeDirectory": "D:\\html",
 	"destinationDirectory": "D:\\html2",
-	"type": 2
+	"type": 4,
+	"zoom": 1.50
 }
