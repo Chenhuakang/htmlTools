@@ -122,8 +122,7 @@ class BatchEncoderAllHtmSize {
             }
             if(modifiedContent.contains(".htm>")){
                 modifiedContent = modifiedContent.replace(".htm>",".html>");
-            }
-            if(modifiedContent.contains(".HTM>")){
+            }else if(modifiedContent.contains(".HTM>")){
                 modifiedContent = modifiedContent.replace(".HTM>",".html>");
             }
 
@@ -136,7 +135,7 @@ class BatchEncoderAllHtmSize {
 
             reader.close(); // 关闭原始文件
 
-//            f.deleteOnExit();
+            f.deleteOnExit();
 
             String directory = f.getParent().replace(Main.executeDirectory + "\\","");
             File parentFile = null;
@@ -147,8 +146,12 @@ class BatchEncoderAllHtmSize {
             File file = null;
             String fileName = f.getName();
             if(!f.getName().equalsIgnoreCase("html")){
-                if(f.getName().endsWith("HTM")){
-                    fileName = fileName.replace("HTM","html");
+                if(f.getName().endsWith("HTML")) {
+                    fileName = fileName.replace("HTML", "html");
+                }else if(f.getName().endsWith("HTM")){
+                    fileName = fileName.replace("HTM", "html");
+                }else if(f.getName().endsWith("html")){
+
                 }else {
                     fileName = fileName.replace("htm","html");
                 }
