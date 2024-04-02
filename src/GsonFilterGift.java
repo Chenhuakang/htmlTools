@@ -112,23 +112,94 @@ class TextFilterGift {
 //                giftParent.mkdirs();
 //            }
             JsonRootBean rootBean = new Gson().fromJson(modifiedContent, JsonRootBean.class);
-            for (int i = 0 ;i<rootBean.getData().getGoods().size();i++){
+
+//            System.out.println(" " + rootBean.getData().getGoods().size()  + " " +  rootBean.getData().getKnapsack().size() + " " + rootBean.getData().getMk_gift().size()
+//                    + " " + rootBean.getData().getFanclub_gift().size());
+
+            for (int i = 0 ;i<rootBean.getData().getGoods().size(); i ++ ){
                 String name = unicodeToCN(rootBean.getData().getGoods().get(i).getGift_name());
-                File parentFile = new File( f.getParent() + "/" + name);
+                File parentFile = new File( f.getParent() + "/goods" + "/" + name);
                 if(!parentFile.exists()){
-                    parentFile.mkdirs();
-                }
-                File image = new File(parentFile.getParent() + "/file");
-                if(!image.exists()){
+
                     int startIndex = rootBean.getData().getGoods().get(i).getGift_image().lastIndexOf("/");
                     int endIndex = rootBean.getData().getGoods().get(i).getGift_image().lastIndexOf("png");
-                    String picName = rootBean.getData().getGoods().get(i).getGift_image().substring(startIndex,endIndex + 3);
-                    downloadByIO(rootBean.getData().getGoods().get(i).getGift_image(),parentFile.getPath(),picName);
+                    if(endIndex > 0){
+                        String picName = rootBean.getData().getGoods().get(i).getGift_image().substring(startIndex,endIndex + 3);
+                        downloadByIO(rootBean.getData().getGoods().get(i).getGift_image(),parentFile.getPath(),picName);
+                    }
 
                     int startSvga = rootBean.getData().getGoods().get(i).getGift_svgaurl().lastIndexOf("/");
                     int endSvga = rootBean.getData().getGoods().get(i).getGift_svgaurl().lastIndexOf("svga");
-                    String svgaName = rootBean.getData().getGoods().get(i).getGift_svgaurl().substring(startSvga,endSvga + 4);
-                    downloadByIO(rootBean.getData().getGoods().get(i).getGift_svgaurl(),parentFile.getPath(),svgaName);
+                    if(endSvga > 0){
+                        String svgaName = rootBean.getData().getGoods().get(i).getGift_svgaurl().substring(startSvga,endSvga + 4);
+                        downloadByIO(rootBean.getData().getGoods().get(i).getGift_svgaurl(),parentFile.getPath(),svgaName);
+                    }
+                }
+            }
+
+            for (int i = 0 ;i<rootBean.getData().getKnapsack().size(); i ++ ){
+                String name = unicodeToCN(rootBean.getData().getKnapsack().get(i).getGift_name());
+                File parentFile = new File( f.getParent() + "/knapsack" + "/" + name);
+                if(!parentFile.exists()){
+
+                    int startIndex = rootBean.getData().getKnapsack().get(i).getGift_image().lastIndexOf("/");
+                    int endIndex = rootBean.getData().getKnapsack().get(i).getGift_image().lastIndexOf("png");
+                    if(endIndex > 0){
+                        String picName = rootBean.getData().getKnapsack().get(i).getGift_image().substring(startIndex,endIndex + 3);
+                        downloadByIO(rootBean.getData().getKnapsack().get(i).getGift_image(),parentFile.getPath(),picName);
+                    }
+
+                    int startSvga = rootBean.getData().getKnapsack().get(i).getGift_svgaurl().lastIndexOf("/");
+                    int endSvga = rootBean.getData().getKnapsack().get(i).getGift_svgaurl().lastIndexOf("svga");
+                    if(endSvga > 0){
+                        String svgaName = rootBean.getData().getKnapsack().get(i).getGift_svgaurl().substring(startSvga,endSvga + 4);
+                        downloadByIO(rootBean.getData().getKnapsack().get(i).getGift_svgaurl(),parentFile.getPath(),svgaName);
+                    }
+
+                }
+            }
+
+
+            for (int i = 0 ;i<rootBean.getData().getMk_gift().size(); i ++ ){
+                String name = unicodeToCN(rootBean.getData().getMk_gift().get(i).getGift_name());
+                File parentFile = new File( f.getParent()  + "/mkgift" + "/" + name);
+                if(!parentFile.exists()){
+
+                    int startIndex = rootBean.getData().getMk_gift().get(i).getGift_image().lastIndexOf("/");
+                    int endIndex = rootBean.getData().getMk_gift().get(i).getGift_image().lastIndexOf("png");
+                    if(endIndex > 0){
+                        String picName = rootBean.getData().getMk_gift().get(i).getGift_image().substring(startIndex,endIndex + 3);
+                        downloadByIO(rootBean.getData().getMk_gift().get(i).getGift_image(),parentFile.getPath(),picName);
+                    }
+
+
+                    int startSvga = rootBean.getData().getMk_gift().get(i).getGift_svgaurl().lastIndexOf("/");
+                    int endSvga = rootBean.getData().getMk_gift().get(i).getGift_svgaurl().lastIndexOf("svga");
+                    if(endSvga > 0){
+                        String svgaName = rootBean.getData().getMk_gift().get(i).getGift_svgaurl().substring(startSvga,endSvga + 4);
+                        downloadByIO(rootBean.getData().getMk_gift().get(i).getGift_svgaurl(),parentFile.getPath(),svgaName);
+                    }
+                }
+            }
+
+            for (int i = 0 ;i<rootBean.getData().getFanclub_gift().size(); i ++ ){
+                String name = unicodeToCN(rootBean.getData().getFanclub_gift().get(i).getGift_name());
+                File parentFile = new File( f.getParent() + "/fanclubgift" + "/" + name);
+                if(!parentFile.exists()){
+
+                    int startIndex = rootBean.getData().getFanclub_gift().get(i).getGift_image().lastIndexOf("/");
+                    int endIndex = rootBean.getData().getFanclub_gift().get(i).getGift_image().lastIndexOf("png");
+                    if(endIndex > 0){
+                        String picName = rootBean.getData().getFanclub_gift().get(i).getGift_image().substring(startIndex,endIndex + 3);
+                        downloadByIO(rootBean.getData().getFanclub_gift().get(i).getGift_image(),parentFile.getPath(),picName);
+                    }
+
+                    int startSvga = rootBean.getData().getFanclub_gift().get(i).getGift_svgaurl().lastIndexOf("/");
+                    int endSvga = rootBean.getData().getFanclub_gift().get(i).getGift_svgaurl().lastIndexOf("svga");
+                    if(endSvga > 0){
+                        String svgaName = rootBean.getData().getFanclub_gift().get(i).getGift_svgaurl().substring(startSvga,endSvga + 4);
+                        downloadByIO(rootBean.getData().getFanclub_gift().get(i).getGift_svgaurl(),parentFile.getPath(),svgaName);
+                    }
                 }
             }
             reader.close();
