@@ -66,6 +66,9 @@ public class Main {
                 }
 
             }
+            if(type == 5){
+                 TextFilterGift.parse(new File(executeDirectory + "\\test.json"));
+            }
         }catch (Exception e){
 
         }
@@ -109,7 +112,7 @@ public class Main {
             }else {
                 System.out.println("无法读取到配置文件");
             }
-//            JsonElement jsonElement = gson.fromJson(strbuffer.toString(), JsonElement.class);
+//            JsonElement jsonElement =     gson.fromJson(strbuffer.toString(), JsonElement.class);
 
             in.close();
         } catch (IOException e) {
